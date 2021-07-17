@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Errormsg from './Errormsg'
 import Loadingmsg from './Loadingmsg'
 import './ProductList.css';
-import { allProductsLoad, createProduct } from './redux/actions/allProductsActions';
-import { PRODUCT_CREATE_RESET } from './redux/constants/allProductConstants';
+import { allProductsLoad, createProduct, deleteProduct } from './redux/actions/allProductsActions';
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from './redux/constants/allProductConstants';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 
@@ -14,6 +14,9 @@ export default function ProductList(props) {
 
   const productCreate = useSelector((state) => state.ProductCreate);
   const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct, } = productCreate;
+  
+  const productDelete = useSelector((state) => state.ProductDelete);
+  const {loading: loadingDelete,error: errorDelete,success: successDelete,} = productDelete;
 
    const dispatch = useDispatch();
    const history = useHistory();
@@ -22,11 +25,17 @@ export default function ProductList(props) {
       dispatch({ type: PRODUCT_CREATE_RESET });
       history.push(`/productpage/${createdProduct._id}/edit`);
     }
+    if (successDelete) {
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
     dispatch(allProductsLoad());
-  }, [createdProduct, dispatch, props.history, successCreate]);
+  }, [createdProduct, dispatch, history, successCreate, successDelete]);
 
-  const deleteHandler = () => {
-    /// TODO: dispatch delete action
+
+  const deleteHandler = (product) => {
+    if (window.confirm('Are you sure to delete?')) {
+      dispatch(deleteProduct(product._id));
+    }
   };
 
   const createHandler = () => {
@@ -42,8 +51,9 @@ export default function ProductList(props) {
             Create Product
           </Button>
         </div>
-        
       </div>
+      {loadingDelete && <Loadingmsg></Loadingmsg>}
+      {errorDelete && <Errormsg variant="danger">{errorDelete}</Errormsg>}
       {loadingCreate && <Loadingmsg/>}
       {errorCreate && <Errormsg variant="danger">{errorCreate}</Errormsg>}
       {loading ? (

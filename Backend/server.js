@@ -6,7 +6,8 @@ const orderRouter = require('./routers/orderRouter.js')
 const dotenv = require('dotenv')
 const path = require('path')
 const Razorpay= require('razorpay')
-
+const multer = require('multer')
+const restAuth = require('./utils').restAuth
 
 dotenv.config()
 
@@ -17,7 +18,7 @@ console.log(`razorpayPublickey`, razorpaySecretKey)
 var instance = new Razorpay({
     key_id: razorpayPublicKey,
     key_secret: razorpaySecretKey,
-  });
+});
 
 
 const app = express()
@@ -37,30 +38,11 @@ app.get('/berlywud.png',(req,res) =>{
 })
 
 
-// app.post('/verification', (req, res) => {
-//     console.log(`req.body`, req.body)
-//     const crypto = require('crypto')
+const _dirname = path.resolve();
+app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
 
-//     const secret = 'yellow321!#'
 
-// 	const shasum = crypto.createHmac('sha256', secret)
-// 	shasum.update(JSON.stringify(req.body))
-// 	const digest = shasum.digest('hex')
-
-// 	console.log(digest, req.headers['x-razorpay-signature'])
-
-// 	if (digest === req.headers['x-razorpay-signature']) {
-// 		console.log('request is legit')
-// 		// process it
-// 		// require('fs').writeFileSync('payment1.json', JSON.stringify(req.body, null, 4))
-//         res.json({ status: 'ok' })
-// 	} else {
-// 		// pass it
-//         res.status (502)
-// 	}
-	
-// })
-
+//Payment routes
 app.post('/razorpay',async(req,res) =>{
     try{
         console.log(req.body)
@@ -116,12 +98,24 @@ app.post("/payment/success", async (req, res) => {
 });
 
 
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename(req, file, cb) {
+      cb(null, `${Date.now()}.jpg`);
+    },
+ });
+const upload = multer({ storage });
+
+app.post('/uploads', restAuth, upload.single('image'), (req, res) => {
+    res.send(`/${req.file.path}`);
+    console.log(`req.file.path`, req.file.path) 
+});
+
 app.use('/api/users',userRouter)
 app.use('/api/products',productRouter)
 app.use('/api/orders', orderRouter);
-
-
-
 
 app.get('/',(req,res) =>{
     res.send('Server is Ready')

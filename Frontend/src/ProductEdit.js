@@ -9,6 +9,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import { PRODUCT_UPDATE_RESET } from './redux/constants/allProductConstants';
+import axios from 'axios'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -100,6 +101,32 @@ export default function ProductEdit(props) {
     // TODO: dispatch update product
     dispatch(updateProduct({_id:productId, brand, title, url, description, origprice, gender, launch, concentration, rating, reviews, stockcount, twoml, fiveml, tenml, thirtyml, retail, topnote1, topnote2, topnote3, middlenote1, middlenote2, middlenote3, basenote1, basenote2, basenote3}))
   };
+  
+  const [loadingUpload, setLoadingUpload] = useState(false);
+  const [errorUpload, setErrorUpload] = useState('');
+
+  const userSignin = useSelector((state) => state.UserSignin);
+  const { userInfo } = userSignin;
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    setLoadingUpload(true);
+    try {
+      const { data } = await axios.post('/uploads', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+           Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setUrl(data);
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+  };
+
   return (
     <div className="productedit">
       <div className="productlist__header">
@@ -184,7 +211,18 @@ export default function ProductEdit(props) {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
             />
-            
+            <div>
+              <input
+                type="file"
+                id="imageFile"
+                label="Choose Image"
+                onChange={uploadFileHandler}
+              ></input>
+              {loadingUpload && <Loadingmsg/>}
+              {errorUpload && (
+                <Errormsg variant="danger">{errorUpload}</Errormsg>
+              )}
+            </div>
             <TextField 
                 id="outlined-multiline-static"
                 label="Description"

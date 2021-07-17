@@ -97,5 +97,16 @@ productRouter.post('/',restAuth,isAdmin,expressAsyncHandler(async (req, res) => 
       }
     })
   );
+
+  productRouter.delete('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
+      const product = await Product.findById(req.params.id);
+      if (product) {
+        const deleteProduct = await product.remove();
+        res.send({ message: 'Product Deleted', product: deleteProduct });
+      } else {
+        res.status(404).send({ message: 'Product Not Found' });
+      }
+    })
+  );
   
 module.exports = productRouter
