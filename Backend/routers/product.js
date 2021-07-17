@@ -30,7 +30,7 @@ productRouter.get('/:id',expressAsyncHandler(async(req,res)=>{
 productRouter.post('/',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
       const product = new Product({
         brand: 'Brand has to be changed ',
-        title: 'Title has to be ',
+        title: 'Title has to be changed ' +Date.now(),
         description: 'Description has to be changed',
         origprice: 1999 ,
         gender: 'unisex',
@@ -79,17 +79,18 @@ productRouter.post('/',restAuth,isAdmin,expressAsyncHandler(async (req, res) => 
         product.decantprice["5ml"] = req.body.fiveml
         product.decantprice["10ml"] = req.body.tenml
         product.decantprice["30ml"] = req.body.thirtyml
-        product.decantprice[Retail] = req.body.retail
+        product.decantprice["Retail"] = req.body.retail
         product.notes.Topnotes[0] = req.body.topnote1
         product.notes.Topnotes[1] = req.body.topnote2
         product.notes.Topnotes[2] = req.body.topnote3
         product.notes.Middlenotes[0] = req.body.middlenote1
-        product.notes.Midddlenotes[1] = req.body.midddlenote2
+        product.notes.Middlenotes[1] = req.body.middlenote2
         product.notes.Middlenotes[2] = req.body.middlenote3
         product.notes.Basenotes[0] = req.body.basenote1
         product.notes.Basenotes[1] = req.body.basenote2
         product.notes.Basenotes[2] = req.body.basenote3
         const updatedProduct = await product.save();
+        console.log(`updatedProduct`, updatedProduct)
         res.send({ message: 'Product Updated', product: updatedProduct });
       } else {
         res.status(404).send({ message: 'Product Not Found' });

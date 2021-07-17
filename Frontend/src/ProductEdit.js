@@ -5,7 +5,7 @@ import { productDetails, updateProduct } from './redux/actions/allProductsAction
 import TextField from '@material-ui/core/TextField';
 import Errormsg from './Errormsg'
 import Loadingmsg from './Loadingmsg'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import { PRODUCT_UPDATE_RESET } from './redux/constants/allProductConstants';
@@ -59,9 +59,10 @@ export default function ProductEdit(props) {
 
   console.log(`product`, product)
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     if (successUpdate) {
-        props.history.push('/productlist');
+        history.push('/productlist');
     }
     if (!product || product._id !== productId || successUpdate) {
         dispatch({ type: PRODUCT_UPDATE_RESET });
@@ -221,8 +222,8 @@ export default function ProductEdit(props) {
                 id="outlined-basic"
                 label="Topnote3"
                 color="secondary"
-                variant="outlined"
                 required
+                variant="outlined"
                 value={topnote3}
                 onChange={(e) => setTopnote3(e.target.value)}
             />
@@ -250,8 +251,8 @@ export default function ProductEdit(props) {
                 label="Middlenote3"
                 color="secondary"
                 variant="outlined"
-                required
                 value={middlenote3}
+                required
                 onChange={(e) => setMiddlenote3(e.target.value)}
             />
             <br/>
