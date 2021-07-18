@@ -18,7 +18,7 @@ console.log(`razorpayPublickey`, razorpaySecretKey)
 var instance = new Razorpay({
     key_id: razorpayPublicKey,
     key_secret: razorpaySecretKey,
-});
+  });
 
 
 const app = express()
@@ -36,7 +36,6 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/berlywud'
 app.get('/berlywud.png',(req,res) =>{
     res.sendFile(path.join(__dirname,"greylogo2025.png"))
 })
-
 
 const _dirname = path.resolve();
 app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
@@ -97,6 +96,7 @@ app.post("/payment/success", async (req, res) => {
     }
 });
 
+/// Image upload///
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -109,13 +109,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post('/uploads', restAuth, upload.single('image'), (req, res) => {
+    console.log(`req`, req)
     res.send(`/${req.file.path}`);
-    console.log(`req.file.path`, req.file.path) 
 });
+/// Image upload///
+
 
 app.use('/api/users',userRouter)
 app.use('/api/products',productRouter)
 app.use('/api/orders', orderRouter);
+
+
+
 
 app.get('/',(req,res) =>{
     res.send('Server is Ready')

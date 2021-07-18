@@ -9,7 +9,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import { PRODUCT_UPDATE_RESET } from './redux/constants/allProductConstants';
-import axios from 'axios'
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductEdit(props) {
   
   const {productId} = useParams() 
+  const history = useHistory()
   const classes = useStyles();
 
   const [brand, setBrand] = useState('');
@@ -60,7 +61,6 @@ export default function ProductEdit(props) {
 
   console.log(`product`, product)
   const dispatch = useDispatch();
-  const history = useHistory();
   useEffect(() => {
     if (successUpdate) {
         history.push('/productlist');
@@ -95,13 +95,13 @@ export default function ProductEdit(props) {
         setBasenote2(product.notes.Basenotes[1])
         setBasenote3(product.notes.Basenotes[2])
     }
-  }, [product, dispatch, productId, successUpdate, props.history]);
+  }, [product, dispatch, productId, successUpdate, history]);
   const submitHandler = (e) => {
     e.preventDefault();
     // TODO: dispatch update product
     dispatch(updateProduct({_id:productId, brand, title, url, description, origprice, gender, launch, concentration, rating, reviews, stockcount, twoml, fiveml, tenml, thirtyml, retail, topnote1, topnote2, topnote3, middlenote1, middlenote2, middlenote3, basenote1, basenote2, basenote3}))
   };
-  
+
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState('');
 
@@ -116,7 +116,7 @@ export default function ProductEdit(props) {
       const { data } = await axios.post('/uploads', bodyFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-           Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${userInfo.token}`,
         },
       });
       setUrl(data);
@@ -126,7 +126,6 @@ export default function ProductEdit(props) {
       setLoadingUpload(false);
     }
   };
-
   return (
     <div className="productedit">
       <div className="productlist__header">
@@ -135,9 +134,9 @@ export default function ProductEdit(props) {
       </div>
       <form className={classes.root} noValidate autoComplete="off"  onSubmit={submitHandler}>
         <div className="pink__button">
-            <button className="pink__button" type="submit">
-              Update Product
-            </button>
+          <button className="pink__button" type="submit">
+            Update Product
+          </button>
         </div>
         {loadingUpdate &&  <Loadingmsg/>}
         {errorUpdate && <Errormsg variant="danger">{error}</Errormsg>}
@@ -183,6 +182,7 @@ export default function ProductEdit(props) {
                 color="secondary"
                 onChange={(e) => setLaunch(e.target.value)}
             />
+            
             <TextField
                 id="outlined-basic"
                 required
@@ -223,6 +223,7 @@ export default function ProductEdit(props) {
                 <Errormsg variant="danger">{errorUpload}</Errormsg>
               )}
             </div>
+            
             <TextField 
                 id="outlined-multiline-static"
                 label="Description"
@@ -260,7 +261,6 @@ export default function ProductEdit(props) {
                 id="outlined-basic"
                 label="Topnote3"
                 color="secondary"
-                required
                 variant="outlined"
                 value={topnote3}
                 onChange={(e) => setTopnote3(e.target.value)}
@@ -290,7 +290,6 @@ export default function ProductEdit(props) {
                 color="secondary"
                 variant="outlined"
                 value={middlenote3}
-                required
                 onChange={(e) => setMiddlenote3(e.target.value)}
             />
             <br/>
@@ -317,7 +316,6 @@ export default function ProductEdit(props) {
                 label="Basenote3"
                 color="secondary"
                 variant="outlined"
-                required
                 value={basenote3}
                 onChange={(e) => setBasenote3(e.target.value)}
             />

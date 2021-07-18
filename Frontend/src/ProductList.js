@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react';
+import './ProductList.css'
 import { useDispatch, useSelector } from 'react-redux';
+import { allProductsLoad, createProduct, deleteProduct } from './redux/actions/allProductsActions';
 import Errormsg from './Errormsg'
 import Loadingmsg from './Loadingmsg'
-import './ProductList.css';
-import { allProductsLoad, createProduct, deleteProduct } from './redux/actions/allProductsActions';
 import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from './redux/constants/allProductConstants';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom';
 
-export default function ProductList(props) {
+export default function ProductList() {
   const productList = useSelector((state) => state.AllProducts);
   const { loading, error, allProducts } = productList;
 
   const productCreate = useSelector((state) => state.ProductCreate);
-  const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct, } = productCreate;
-  
+  const {loading: loadingCreate,error: errorCreate,success: successCreate,product: createdProduct} = productCreate; 
+
   const productDelete = useSelector((state) => state.ProductDelete);
   const {loading: loadingDelete,error: errorDelete,success: successDelete,} = productDelete;
 
-   const dispatch = useDispatch();
-   const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory()
+
   useEffect(() => {
     if (successCreate) {
       dispatch({ type: PRODUCT_CREATE_RESET });
@@ -30,14 +31,12 @@ export default function ProductList(props) {
     }
     dispatch(allProductsLoad());
   }, [createdProduct, dispatch, history, successCreate, successDelete]);
-
-
+  
   const deleteHandler = (product) => {
     if (window.confirm('Are you sure to delete?')) {
       dispatch(deleteProduct(product._id));
     }
   };
-
   const createHandler = () => {
     dispatch(createProduct());
   };
@@ -47,13 +46,13 @@ export default function ProductList(props) {
       <div className="productlist__header">
         <h1>Products</h1>
         <div className="pink__button">
-          <Button type="button" onClick={createHandler}>
+          <Button className="pink__button" onClick={createHandler}>
             Create Product
           </Button>
         </div>
       </div>
-      {loadingDelete && <Loadingmsg></Loadingmsg>}
-      {errorDelete && <Errormsg variant="danger">{errorDelete}</Errormsg>}
+      {loadingDelete && <Loadingmsg/>}
+      {errorDelete && <Errormsg variant="danger">{errorCreate}</Errormsg>}
       {loadingCreate && <Loadingmsg/>}
       {errorCreate && <Errormsg variant="danger">{errorCreate}</Errormsg>}
       {loading ? (

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Footer.css'
-import blacklogo from './images/blacklogo.png'
+import logoblack from './images/blacklogo2025.png'
 
 function Footer() {
     return (
@@ -15,7 +15,7 @@ function Footer() {
             
             <div className="footer__info">
                 <div className="footer__img">
-                    <img src={blacklogo} alt=""/>
+                    <img src={logoblack} alt=""/>
                 </div>
                 <div className="footer__categories">
                     <h3>THE CATEGORIES</h3>

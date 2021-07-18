@@ -20,7 +20,7 @@ orderRouter.get(
   '/myorder',
   restAuth,
   expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id});
+    const orders = await Order.find({ user: req.user });
     res.send(orders);
   })
 );
@@ -84,7 +84,11 @@ orderRouter.put(
   })
 );
 
-orderRouter.delete('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
+orderRouter.delete(
+  '/:id',
+  restAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       const deleteOrder = await order.remove();
@@ -95,7 +99,11 @@ orderRouter.delete('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) 
   })
 );
 
-orderRouter.put('/:id/deliver',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
+orderRouter.put(
+  '/:id/deliver',
+  restAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isDelivered = true;
@@ -108,5 +116,6 @@ orderRouter.put('/:id/deliver',restAuth,isAdmin,expressAsyncHandler(async (req, 
     }
   })
 );
+
 
 module.exports = orderRouter

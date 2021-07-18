@@ -2,8 +2,8 @@ const express = require('express')
 const expressAsyncHandler = require('express-async-handler')
 const data = require('../data.js')
 const Product =require('../models/product.js')
-const restAuth = require('../utils.js').restAuth
-const isAdmin = require('../utils.js').isAdmin
+const restAuth = require('../utils').restAuth
+const isAdmin = require('../utils').isAdmin
 
 const productRouter = express.Router()
 
@@ -28,41 +28,41 @@ productRouter.get('/:id',expressAsyncHandler(async(req,res)=>{
 }))
 
 productRouter.post('/',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
-      const product = new Product({
-        brand: 'Brand has to be changed ',
-        title: 'Title has to be changed ' +Date.now(),
-        description: 'Description has to be changed',
-        origprice: 1999 ,
-        gender: 'unisex',
-        launch: 2010,
-        concentration: 'Eau De Parfum',
-        stockcount: 100,
-        url: 'https://raw.githubusercontent.com/mannywebdev/perfumesite/main/PerfumePics/giorgio%20armani%20code%20absolu.jpg',
-        rating: 4.5,
-        reviews: 6,
-        decantprice: {
-            "2ml": 150,
-            "5ml": 250,
-            "10ml": 550,
-            "30ml": 1050,
-            "Retail": 3500,
-        },
-        notes: {
-            Topnotes:["Apple","Green Mandarin"],
-            Middlenotes:["Orange Blossom","Nutmeg","Carrot Seeds"],
-            Basenotes:["Suede","Tonka Bean","Vanilla"]
-        }
-      });
+    const product = new Product({
+      brand: 'Brand has to be changed ',
+      title: 'Title has to be changed' + Date.now(),
+      description: 'Description has to be changed',
+      origprice: 1999 ,
+      gender: 'unisex',
+      launch: 2010,
+      concentration: 'Eau De Parfum',
+      stockcount: 100,
+      url: 'https://raw.githubusercontent.com/mannywebdev/perfumesite/main/PerfumePics/giorgio%20armani%20code%20absolu.jpg',
+      rating: 4.5,
+      reviews: 6,
+      decantprice: {
+          "2ml": 150,
+          "5ml": 250,
+          "10ml": 550,
+          "30ml": 1050,
+          "Retail": 3500,
+      },
+      notes: {
+          Topnotes:["Apple","Green Mandarin"],
+          Middlenotes:["Orange Blossom","Nutmeg","Carrot Seeds"],
+          Basenotes:["Suede","Tonka Bean","Vanilla"]
+      }
+    });
+    
+    const createdProduct = await product.save();
+    res.send({ message: 'Product Created', product: createdProduct });
+  })
+);
 
-      const createdProduct = await product.save();
-      res.send({ message: 'Product Created', product: createdProduct });
-    })
-  );
-
-  productRouter.put('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
+productRouter.put('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
       const productId = req.params.id;
       const product = await Product.findById(productId);
-      console.log(`req.body`, req.body)
+      console.log(`product`, product)
       if (product) {
         product.brand = req.body.brand;
         product.title = req.body.title;
@@ -96,9 +96,9 @@ productRouter.post('/',restAuth,isAdmin,expressAsyncHandler(async (req, res) => 
         res.status(404).send({ message: 'Product Not Found' });
       }
     })
-  );
+);
 
-  productRouter.delete('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
+productRouter.delete('/:id',restAuth,isAdmin,expressAsyncHandler(async (req, res) => {
       const product = await Product.findById(req.params.id);
       if (product) {
         const deleteProduct = await product.remove();
@@ -107,6 +107,6 @@ productRouter.post('/',restAuth,isAdmin,expressAsyncHandler(async (req, res) => 
         res.status(404).send({ message: 'Product Not Found' });
       }
     })
-  );
-  
+);
+
 module.exports = productRouter

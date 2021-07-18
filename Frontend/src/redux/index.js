@@ -1,9 +1,8 @@
-import {allProductsReducer, productCreateReducer, productDetailsReducer} from './reducer/allProductsReducer'
+import {allProductsReducer, productCreateReducer, productDeleteReducer, productDetailsReducer, productUpdateReducer} from './reducer/allProductsReducer'
 import thunk from 'redux-thunk'
 import { cartReducer } from './reducer/cartReducers'
 import { userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer } from './reducer/userReducer'
-import { myOrderListReducer, orderCreateReducer, orderDeleteReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderPayReducer } from './reducer/orderReducers'
-import { productDeleteReducer, productUpdateReducer } from './reducers/allProductsReducer'
+import { myOrdersListReducer, orderCreateReducer, orderDeleteReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderPayReducer } from './reducer/orderReducers'
 
 const redux = require("redux")
 const {combineReducers,createStore,compose,applyMiddleware}= redux
@@ -26,12 +25,12 @@ const rootReducer = combineReducers({
     OrderCreate : orderCreateReducer,
     OrderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
-    MyOrders : myOrderListReducer,
-    UserDetails : userDetailsReducer,
-    UserUpdateProfile : userUpdateProfileReducer,
-    ProductCreate : productCreateReducer,
-    ProductUpdate : productUpdateReducer,
-    ProductDelete : productDeleteReducer,
+    MyOrders : myOrdersListReducer,
+    UserDetails: userDetailsReducer,
+    UserUpdateProfile: userUpdateProfileReducer,
+    ProductCreate: productCreateReducer,
+    ProductUpdate: productUpdateReducer,
+    ProductDelete: productDeleteReducer,
     OrderList: orderListReducer,
     OrderDelete: orderDeleteReducer,
     OrderDeliver: orderDeliverReducer,

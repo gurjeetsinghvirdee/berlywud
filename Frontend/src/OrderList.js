@@ -1,29 +1,29 @@
 import React, { useEffect } from 'react';
-import './OrderList.css';
 import { useDispatch, useSelector } from 'react-redux';
-import Loadingmsg from './Loadingmsg';
-import Errormsg from './Errormsg';
 import { useHistory } from 'react-router-dom';
+import Errormsg from './Errormsg'
+import Loadingmsg from './Loadingmsg'
 import { deleteOrder, listOrders } from './redux/actions/orderActions';
+import './OrderList.css'
 import { ORDER_DELETE_RESET } from './redux/constants/orderConstants';
 
-
-export default function OrderList(props) {
-  const history = useHistory()
+export default function OrderList() {
+    const history = useHistory()
   const orderList = useSelector((state) => state.OrderList);
   const { loading, error, orders } = orderList;
   const orderDelete = useSelector((state) => state.OrderDelete);
-  const {loading: loadingDelete,error: errorDelete,success: successDelete,} = orderDelete;
+  const {loading: loadingDelete,error: errorDelete,success: successDelete} = orderDelete;
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: ORDER_DELETE_RESET });
     dispatch(listOrders());
-  }, [dispatch, successDelete]);
+  }, [dispatch,successDelete]);
   const deleteHandler = (order) => {
     // TODO: delete handler
     if (window.confirm('Are you sure to delete?')) {
-      dispatch(deleteOrder(order._id));
-    }
+        dispatch(deleteOrder(order._id));
+      }
   };
   return (
     <div className="orderlist">
@@ -31,7 +31,7 @@ export default function OrderList(props) {
       {loadingDelete && <Loadingmsg/>}
       {errorDelete && <Errormsg variant="danger">{errorDelete}</Errormsg>}
       {loading ? (
-        <Loadingmsg></Loadingmsg>
+        <Loadingmsg/>
       ) : error ? (
         <Errormsg variant="danger">{error}</Errormsg>
       ) : (

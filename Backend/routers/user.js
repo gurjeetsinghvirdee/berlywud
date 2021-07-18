@@ -4,7 +4,7 @@ const expressAsyncHandler = require('express-async-handler')
 const data = require('../data')
 const bcrypt = require('bcryptjs')
 const  generateToken  = require('../utils.js').generateToken
-const restAuth = require('../utils.js').restAuth
+const restAuth = require('../utils').restAuth
 
 const userRouter = express.Router()
 

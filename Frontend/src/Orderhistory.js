@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import './Orderhistory.css';
+import './Orderhistory.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { myOrderList } from './redux/actions/orderActions';
+import { myOrdersList } from './redux/actions/orderActions';
 import Errormsg from './Errormsg'
 import Loadingmsg from './Loadingmsg'
+import { useHistory } from 'react-router-dom';
 
-
-export default function Orderhistory(props) {
+export default function Orderhistory() {
   const myOrders = useSelector((state) => state.MyOrders);
+  const history = useHistory()
   const { loading, error, orders } = myOrders;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(myOrderList());
+    dispatch(myOrdersList());
   }, [dispatch]);
   return (
     <div className="orderhistory">
@@ -49,7 +50,7 @@ export default function Orderhistory(props) {
                     type="button"
                     className="small"
                     onClick={() => {
-                      props.history.push(`/order/${order._id}`);
+                      history.push(`/order/${order._id}`);
                     }}
                   >
                     Details

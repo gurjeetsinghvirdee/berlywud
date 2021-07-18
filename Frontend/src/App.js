@@ -6,7 +6,6 @@ import Home from './Home'
 import Cart from './Cart';
 import Footer from './Footer'
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
-import PrivateRoute from './PrivateRoute';
 import Productmain from './Productmain'
 import Signin from './Signin';
 import Register from './Register';
@@ -14,9 +13,10 @@ import Shippingaddress from './Shippingaddress';
 import Payment from './Payment';
 import Orderdetails from './Orderdetails';
 import Orderhistory from './Orderhistory';
-import Myprofile from '../src/Myprofile';
-import ProductList from './ProductList';
+import Myprofile from './Myprofile';
+import PrivateRoute from './PrivateRoute';
 import AdminRoute from './AdminRoute';
+import ProductList from './ProductList';
 import ProductEdit from './ProductEdit';
 import OrderList from './OrderList';
 
@@ -51,11 +51,11 @@ function App() {
           <Route path="/payment">
             <Payment/>
           </Route>
-          <Route path="/orderhistory">
-            <Orderhistory/>
-          </Route>
           <Route path="/order/:id">
             <Orderdetails/>
+          </Route>
+          <Route path="/orderhistory">
+            <Orderhistory/>
           </Route>
           <Route path="/signin">
             <Signin/>
@@ -63,10 +63,10 @@ function App() {
           <Route path="/register">
             <Register/>
           </Route>
-          <PrivateRoute path="/profile" component={Myprofile}></PrivateRoute>
-          <AdminRoute path="/productlist" component={ProductList}></AdminRoute>
-          <AdminRoute path="/orderlist" component={OrderList}
-          ></AdminRoute>
+          <PrivateRoute component={Myprofile} path="/profile"></PrivateRoute>
+          <AdminRoute component={ProductList} path="/productlist"></AdminRoute>
+          <AdminRoute component={OrderList}  path="/orderlist"></AdminRoute>
+          
         </Switch>
         </main> 
       </div>
