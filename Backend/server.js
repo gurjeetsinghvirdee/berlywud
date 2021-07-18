@@ -40,9 +40,9 @@ app.get('/berlywud.png',(req,res) =>{
 const _dirname = path.resolve();
 app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
 
-app.use(express.static(path.join(__dirname, '/Frontend/Backend/build')));
+app.use(express.static(path.join(__dirname, '/Frontend/build')));
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/Frontend/Backend/build/index.html'))
+  res.sendFile(path.join(__dirname, '/Frontend/build/index.html'))
 );
 
 
