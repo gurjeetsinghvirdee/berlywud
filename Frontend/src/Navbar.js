@@ -2,7 +2,7 @@ import React from 'react'
 import './Navbar.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import logoblack from './images/blacklogo2025.png'
+import logoblack from './images/blacklogo.png'
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
