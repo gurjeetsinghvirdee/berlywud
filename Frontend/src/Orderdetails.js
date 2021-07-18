@@ -6,8 +6,9 @@ import { Link, useParams } from 'react-router-dom'
 import Errormsg from './Errormsg'
 import Loadingmsg from './Loadingmsg'
 import './Payment.css'
-import { detailsOrder, payOrder } from './redux/actions/orderActions'
-import { ORDER_PAY_RESET } from './redux/constants/orderConstants'
+import { deliverOrder, detailsOrder, payOrder } from './redux/actions/orderActions'
+import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from './redux/constants/orderConstants'
+import { orderDeliverReducer } from './redux/reducer/orderReducers'
 
 const loadRazorpay= (src)=>{
     return new Promise((resolve)=>{
@@ -23,25 +24,29 @@ const loadRazorpay= (src)=>{
     })
 }
 
-
 function Orderdetails() {
-
     const dispatch = useDispatch()
     const params = useParams()
     const orderId = params.id
-    
 
     const OrderDetails = useSelector((state) => state.OrderDetails);
     const { order, loading, error } = OrderDetails;
+    const orderDeliver = useSelector((state) => state.OrderDeliver);
+    const {loading: loadingDeliver,error: errorDeliver,success: successDeliver,} = orderDeliver;
+
+    const UserSignin = useSelector(state=> state.UserSignin)
+    const { userInfo } = UserSignin;
+
     const orderPay = useSelector((state) => state.orderPay);
     const {loading: loadingPay,error: errorPay,success: successPay} = orderPay;
 
     useEffect(() => {
-        if(!order || successPay || (order && order._id !== orderId)){
+        if(!order || successPay || successDeliver || (order && order._id !== orderId)){
             dispatch({ type: ORDER_PAY_RESET });
+            dispatch({ type: ORDER_DELIVER_RESET });
             dispatch(detailsOrder(orderId))
         }
-    }, [dispatch,orderId,order,successPay]);
+    }, [dispatch,orderId,order,successPay,successDeliver]);
 
     const __DEV__ = document.domain === "localhost"
 
@@ -54,6 +59,7 @@ function Orderdetails() {
         // const data = await fetch('http://localhost:5000/razorpay', {method: 'POST'}).then((response)=> 
         //     res.json()
         // ) 
+        
         const data= {
             amount:(order.totalPrice*100).toString(),
         }
@@ -107,6 +113,10 @@ function Orderdetails() {
     // const successPaymentHandler = (paymentResult) => {
     //     dispatch(payOrder(order, paymentResult));
     // };
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order._id));
+    };
 
     return loading ? (
                 <Loadingmsg/> 
@@ -187,6 +197,15 @@ function Orderdetails() {
                                 </div>
                                 )
                             }
+                            {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                <div className="pink__button">
+                                {loadingDeliver && <Loadingmsg/>}
+                                {errorDeliver && (
+                                    <Errormsg variant="danger">{errorDeliver}</Errormsg>
+                                )}
+                                    <Button variant="contained" onClick={deliverHandler}>Deliver Order</Button>
+                                </div>
+                            )}
                         </div>
                 </div>
             </div>
