@@ -2,7 +2,7 @@ import React from 'react'
 import './Navbar.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import logoblack from './images/blacklogo2025.png'  
+import logoblack from './images/blacklogo2025.png'
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -59,7 +59,7 @@ function Navbar() {
                             </Button>
                             </Link>
                             <ul className="dropdown__content">
-                                <Link to="/orderhistory" className="link"><li>My Orders</li></Link>
+                                <Link to="/orderhistory" className="link"><li>Order History</li></Link>
                                 <Link to="/profile" className="link"><li>My Profile</li></Link>
                                 <Link to="#signout" className="link" onClick={signoutHandler}><li>Logout</li></Link>
                             </ul>
@@ -75,11 +75,10 @@ function Navbar() {
                         </Link>
                     )
                 }
-
                 {
                     userInfo && userInfo.isAdmin &&
                         <div className="dropdown">
-                            <Link className="link link__button" to='Admin'>
+                            <Link className="link link__button" to='#admin'>
                             <Button
                                 variant="contained"
                                 endIcon={<ArrowDropDownIcon/>}
@@ -90,7 +89,7 @@ function Navbar() {
                             <ul className="dropdown__content">
                                 <Link to="/dashboard" className="link"><li>Dashboard</li></Link>
                                 <Link to="/productlist" className="link"><li>Products</li></Link>
-                                <Link to="/orderlist" className="link"><li>Orders</li></Link>
+                                <Link to="/orderlist" className="link" ><li>Orders</li></Link>
                                 <Link to="/userlist" className="link"><li>Users</li></Link>
                             </ul>
                         </div>
