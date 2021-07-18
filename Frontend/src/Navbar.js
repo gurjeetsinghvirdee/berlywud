@@ -1,6 +1,6 @@
 import React from 'react'
 import './Navbar.css'
-import logoblack from './images/blacklogo2025.png'
+import blacklogo from './images/blacklogo.png';
 import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Badge from '@material-ui/core/Badge';
@@ -34,7 +34,7 @@ function Navbar() {
         <div className="navbar">
             <Link className="navbar__link" style={{color: 'inherit', textDecoration: 'inherit'}} to="/">
             <div className="navbar__logo">
-                <img src={logoblack} alt=""/>
+                <img src={blacklogo} alt=""/>
             </div>
             </Link>
             <div className="navbar__option">
