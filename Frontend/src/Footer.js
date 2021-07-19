@@ -15,7 +15,7 @@ function Footer() {
             
             <div className="footer__info">
                 <div className="footer__img">
-                    <img src={logoblack} alt=""/>
+                    {/* <img src={logoblack} alt=""/> */}
                 </div>
                 <div className="footer__categories">
                     <h3>THE CATEGORIES</h3>
