@@ -16,7 +16,6 @@ var path = require('path');
 
 var Razorpay = require('razorpay');
 
-var nanoid = require('nanoid');
 
 dotenv.config();
 var razorpayPublicKey = "rzp_test_tjgqJf8OgEA215";
