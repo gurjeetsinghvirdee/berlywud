@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductEdit(props) {
   
   const {productId} = useParams() 
+  console.log(`productId`, productId)
   const history = useHistory()
   const classes = useStyles();
 

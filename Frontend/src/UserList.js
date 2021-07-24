@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, listUsers } from './redux/actions/userActions';
 import Loadingmsg from './Loadingmsg';
 import Errormsg from './Errormsg';
+import { USER_DETAILS_RESET } from './redux/constants/userConstants';
+import { useHistory } from 'react-router-dom';
 
 export default function UserList() {
   const userList = useSelector((state) => state.UserList);
@@ -10,8 +12,12 @@ export default function UserList() {
   const userDelete = useSelector((state) => state.UserDelete);
   const {loading: loadingDelete,error: errorDelete,success: successDelete,} = userDelete;
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(listUsers());
+    dispatch({
+      type: USER_DETAILS_RESET,
+    });
   }, [dispatch, successDelete]);
   const deleteHandler = (user) => {
     if (window.confirm('Are you sure?')) {
@@ -50,7 +56,7 @@ export default function UserList() {
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                 <td>
-                  <button type="button" className="small">Edit</button>
+                  <button type="button" className="small" onClick={() => history.push(`/user/${user._id}/edit`)}>Edit</button>
                   <button type="button" className="small" onClick={() => deleteHandler(user)} >Delete</button>
                 </td>
               </tr>
