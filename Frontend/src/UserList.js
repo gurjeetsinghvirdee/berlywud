@@ -1,20 +1,32 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from './redux/actions/userActions';
+import { deleteUser, listUsers } from './redux/actions/userActions';
 import Loadingmsg from './Loadingmsg';
-
 import Errormsg from './Errormsg';
 
 export default function UserList() {
   const userList = useSelector((state) => state.UserList);
   const { loading, error, users } = userList;
+  const userDelete = useSelector((state) => state.UserDelete);
+  const {loading: loadingDelete,error: errorDelete,success: successDelete,} = userDelete;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listUsers());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
+  const deleteHandler = (user) => {
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteUser(user._id));
+    }
+  };
   return (
     <div className="orderlist">
       <h1>Users</h1>
+      {loadingDelete && <Loadingmsg/>}
+      {errorDelete && <Errormsg variant="danger">{errorDelete}</Errormsg>}
+      {successDelete && (
+        <Errormsg variant="success">User Deleted Successfully</Errormsg>
+      )}
+      
       {loading ? (
         <Loadingmsg></Loadingmsg>
       ) : error ? (
@@ -26,7 +38,6 @@ export default function UserList() {
               <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>IS SELLER</th>
               <th>IS ADMIN</th>
               <th>ACTIONS</th>
             </tr>
@@ -37,11 +48,10 @@ export default function UserList() {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isSeller ? 'YES' : ' NO'}</td>
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                 <td>
-                  <button>Edit</button>
-                  <button>Delete</button>
+                  <button type="button" className="small">Edit</button>
+                  <button type="button" className="small" onClick={() => deleteHandler(user)} >Delete</button>
                 </td>
               </tr>
             ))}
