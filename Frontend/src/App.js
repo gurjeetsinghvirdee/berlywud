@@ -19,6 +19,7 @@ import AdminRoute from './AdminRoute';
 import ProductList from './ProductList';
 import ProductEdit from './ProductEdit';
 import OrderList from './OrderList';
+import UserList from './UserList';
 
 function App() {
  
@@ -66,6 +67,7 @@ function App() {
           <PrivateRoute component={Myprofile} path="/profile"></PrivateRoute>
           <AdminRoute component={ProductList} path="/productlist"></AdminRoute>
           <AdminRoute component={OrderList}  path="/orderlist"></AdminRoute>
+          <AdminRoute path="/userlist" component={UserList}></AdminRoute>
           
         </Switch>
         </main> 

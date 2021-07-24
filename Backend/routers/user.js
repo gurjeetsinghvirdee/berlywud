@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../models/user')
 const expressAsyncHandler = require('express-async-handler')
 const data = require('../data')
+const isAdmin = require('../utils').isAdmin
 const bcrypt = require('bcryptjs')
 const  generateToken  = require('../utils.js').generateToken
 const restAuth = require('../utils').restAuth
@@ -75,6 +76,16 @@ userRouter.get(
           token: generateToken(updatedUser),
         });
       }
+    })
+  );
+
+  userRouter.get(
+    '/',
+    restAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const users = await User.find({});
+      res.send(users);
     })
   );
 
