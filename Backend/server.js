@@ -127,9 +127,9 @@ app.use('/api/orders', orderRouter);
 
 
 
-// app.get('/',(req,res) =>{
-//     res.send('Server is Ready')
-// })
+app.get('/',(req,res) =>{
+    res.send('Server is Ready')
+})
 
 app.use((err,req,res,next)=>{
     res.status(500).send({message : err.message})
