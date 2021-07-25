@@ -7,6 +7,7 @@ import { USER_DETAILS_RESET } from './redux/constants/userConstants';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../node_modules/@material-ui/core/index';
 
+
 export default function UserList() {
   const userList = useSelector((state) => state.UserList);
   const { loading, error, users } = userList;
@@ -58,7 +59,7 @@ export default function UserList() {
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                 <td>
                   <Button type="button" variant="contained" color="default" onClick={() => history.push(`/user/${user._id}/edit`)}>Edit</Button>
-                  <Button type="button" variant="contained" color="default" onClick={() => deleteHandler(user)} >Delete</Button>
+                  <Button type="button" variant="contained" color="secondary" onClick={() => deleteHandler(user)}>Delete</Button>
                 </td>
               </tr>
             ))}
