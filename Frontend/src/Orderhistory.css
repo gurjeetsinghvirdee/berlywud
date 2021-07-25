@@ -9,7 +9,7 @@
 
 .table thead tr {
   background-color:#f8bbd0;
-  color: #ffffff;
+  color: #000;
   text-align: left;
 }
 
@@ -27,15 +27,12 @@
 }
 
 .table tbody tr:nth-of-type(even) {
-  background-color:#f8bbd0;
-}
-
-.table tbody td:nth-of-type(odd) {
-  color: #fff;
+  background-color:
+  #ff80ab;
 }
 
 .table tbody tr:nth-of-type(odd) {
-  background-color:#ef9a9a;
+  background-color:#ff4081;
   
 }
 

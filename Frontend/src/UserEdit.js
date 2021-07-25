@@ -88,7 +88,7 @@ export default function UserEdit(props) {
               ></input>
             </div>
             <div>
-              <Button variant="contained" type="text" color="default">Update</Button>
+              <Button variant="contained" type="text" color="secondary">Update</Button>
             </div>
           </>
         )}

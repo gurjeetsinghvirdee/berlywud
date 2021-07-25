@@ -82,7 +82,7 @@ export default function ProductList() {
                 
                 <td>
                 <Button onClick={() => history.push(`/productpage/${product._id}/edit`)} variant="contained" color="default">Edit</Button>
-                <Button onClick={() => deleteHandler(product)} variant="contained" color="default">Delete</Button>
+                <Button onClick={() => deleteHandler(product)} variant="contained" color="secondary">Delete</Button>
                 </td>
               </tr>
             ))}
