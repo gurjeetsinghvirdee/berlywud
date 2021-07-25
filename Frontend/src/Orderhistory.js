@@ -5,6 +5,7 @@ import { myOrdersList } from './redux/actions/orderActions';
 import Errormsg from './Errormsg'
 import Loadingmsg from './Loadingmsg'
 import { useHistory } from 'react-router-dom';
+import { Button } from '../node_modules/@material-ui/core/index';
 
 export default function Orderhistory() {
   const myOrders = useSelector((state) => state.MyOrders);
@@ -35,7 +36,7 @@ export default function Orderhistory() {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order._id}>
+              <tr className="active-row" key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>
@@ -46,15 +47,7 @@ export default function Orderhistory() {
                     : 'No'}
                 </td>
                 <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => {
-                      history.push(`/order/${order._id}`);
-                    }}
-                  >
-                    Details
-                  </button>
+                  <Button onClick={() => {history.push(`/order/${order._id}`);}} variant="contained" color="default">Details</Button>
                 </td>
               </tr>
             ))}

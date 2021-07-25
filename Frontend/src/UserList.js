@@ -5,6 +5,7 @@ import Loadingmsg from './Loadingmsg';
 import Errormsg from './Errormsg';
 import { USER_DETAILS_RESET } from './redux/constants/userConstants';
 import { useHistory } from 'react-router-dom';
+import { Button } from '../node_modules/@material-ui/core/index';
 
 export default function UserList() {
   const userList = useSelector((state) => state.UserList);
@@ -56,8 +57,8 @@ export default function UserList() {
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                 <td>
-                  <button type="button" className="small" onClick={() => history.push(`/user/${user._id}/edit`)}>Edit</button>
-                  <button type="button" className="small" onClick={() => deleteHandler(user)} >Delete</button>
+                  <Button type="button" variant="contained" color="default" onClick={() => history.push(`/user/${user._id}/edit`)}>Edit</Button>
+                  <Button type="button" variant="contained" color="default" onClick={() => deleteHandler(user)} >Delete</Button>
                 </td>
               </tr>
             ))}

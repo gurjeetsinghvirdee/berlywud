@@ -19,7 +19,7 @@
     color: #57534a;
 }
 .navbar__option{
-    width: 62%;
+    width: 50%;
 }
 
 .navbar__logincart{
@@ -87,3 +87,99 @@ ul li {
         width: 20px;
     }
 } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* orderhistory */
+.table {
+    /* width: 100%; */
+    border-collapse: collapse;
+  }
+
+  .table tbody tr:nth-of-type(odd) {
+    background-color: #f4f4f4;
+  }
+
+  .table td, .table th {
+    text-align: left;
+    border: 0.1rem solid #e4e4e4;
+    padding: 0.5rem;
+  }
+
+  .table button {
+    margin: 0 0.2rem;
+  }
+
+  

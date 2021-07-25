@@ -21,6 +21,7 @@ import ProductEdit from './ProductEdit';
 import OrderList from './OrderList';
 import UserList from './UserList';
 import UserEdit from './UserEdit';
+import Searchscreen from './Searchscreen';
 
 function App() {
  
@@ -64,6 +65,9 @@ function App() {
           </Route>
           <Route path="/register">
             <Register/>
+          </Route>
+          <Route path="/search/name/:name?">
+            <Searchscreen/>
           </Route>
           <PrivateRoute component={Myprofile} path="/profile"></PrivateRoute>
           <AdminRoute component={ProductList} path="/productlist"></AdminRoute>

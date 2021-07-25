@@ -81,22 +81,8 @@ export default function ProductList() {
                 <td>{product.origprice}</td>
                 
                 <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() =>
-                      history.push(`/productpage/${product._id}/edit`)
-                    }
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => deleteHandler(product)}
-                  >
-                    Delete
-                  </button>
+                <Button onClick={() => history.push(`/productpage/${product._id}/edit`)} variant="contained" color="default">Edit</Button>
+                <Button onClick={() => deleteHandler(product)} variant="contained" color="default">Delete</Button>
                 </td>
               </tr>
             ))}

@@ -6,6 +6,7 @@ import { detailsUser, updateUser } from './redux/actions/userActions';
 import Loadingmsg from './Loadingmsg';
 import Errormsg from './Errormsg';
 import { USER_UPDATE_RESET } from './redux/constants/userConstants';
+import { Button } from '../node_modules/@material-ui/core/index';
 
 export default function UserEdit(props) {
   const {id} = useParams(); 
@@ -87,9 +88,7 @@ export default function UserEdit(props) {
               ></input>
             </div>
             <div>
-              <button type="submit" className="primary">
-                Update
-              </button>
+              <Button variant="contained" type="text" color="default">Update</Button>
             </div>
           </>
         )}
