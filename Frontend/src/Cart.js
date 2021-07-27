@@ -6,7 +6,7 @@ import Subtotal from './Subtotal'
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { addToCart } from './redux/actions/cartActions'
 import CartItem from './CartItem';
-// import emptybag from './images/emptybag.png'
+import emptybag from './images/emptybag.png'
 import { Button } from '@material-ui/core';
 
 function Cart() {
@@ -33,7 +33,7 @@ function Cart() {
         (cartItems.length <= 0) ? 
         (<div className="cart__products">
             <div className="cart__quotes">
-                {/* <img src={emptybag} width="100%" alt="emptycartItems"/> */}
+                <img src={emptybag} width="100%" alt="emptycartItems"/>
                 <p>Hey,it feels so light!</p>
                 <p>There is nothing in your bag.Let's add some items.</p>
                 <Link to='/' className='link'>

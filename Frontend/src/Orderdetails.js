@@ -102,9 +102,9 @@ function Orderdetails() {
 
             },
             "prefill": {
-                "name": "Gaurav Kumar",
-                "email": "gaurav.kumar@example.com",
-                "contact": "9999999999"
+                "name": "Name",
+                "email": "Email",
+                "contact": "Phone Number"
                 
             }
         };
