@@ -34,7 +34,6 @@
 
 .table tbody tr:nth-of-type(odd) {
   background-color:#ff4081;
-  
 }
 
 .table tbody tr:last-of-type {
@@ -44,7 +43,6 @@
 .table tbody tr.active-row {
   color: #ffffff;
 }
-
 
 .orderhistory{
   margin : 0 4% 4% 4%;
