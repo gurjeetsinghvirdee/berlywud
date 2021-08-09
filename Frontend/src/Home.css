@@ -1,6 +1,11 @@
 .home{
-    padding: 5em 0;
+    padding: 3em 0;
 }
+
+.home p{
+    margin: 0em 1em;
+}
+
 .home__page .home__container{
     display: flex;
     flex-wrap: wrap;

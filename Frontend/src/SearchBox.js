@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './SearchBox.css';
-import { BiSearchAlt } from "react-icons/bi"; 
 import { useHistory } from 'react-router-dom';
+import './SearchBox.css'
+import { BiSearchAlt } from "react-icons/bi"
 
 export default function SearchBox() {
-  const history = useHistory();
+  const history = useHistory()
   const [name, setName] = useState('');
   const submitHandler = (e) => {
     e.preventDefault();
@@ -14,13 +14,13 @@ export default function SearchBox() {
     <form className="search" onSubmit={submitHandler}>
       <div className="row">
         <input
-          placeholder
+          type="text"
           name="q"
           id="q"
           onChange={(e) => setName(e.target.value)}
         ></input>
         <button className="primary" type="submit">
-         <BiSearchAlt/>
+          <BiSearchAlt/>
         </button>
       </div>
     </form>
